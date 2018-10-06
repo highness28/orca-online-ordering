@@ -25,6 +25,23 @@
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-xs-4">
+                                        <div class="image_preview">
+                                            <label for="image"><i class="fa fa-camera"></i></label>
+                                            @if($product->image)
+                                            <img src="data:image/png;base64,{{ base64_encode($product->image) }}" class="prodImgPrev" id="prodImgPrev">
+                                            @else
+                                                <img src="{{ url('/img/products/default.png') }}" alt="Product" style="width: 100%">
+                                            @endif
+                                        </div>
+                                        <input type="file" name="image" id="image" class="imgFile hidden" accept="image/x-png,image/gif,image/jpeg" style="display:none;" enctype="multipart/form-data">
+                                        <div class="input_error" style="color:#b71c1c;"><i>{{ $errors->first('image') }}</i></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-xs-4">
                                         <div class="input-group">
                                             <span class="input-group-addon">
                                                 <i class="fa fa-pencil"></i>
@@ -114,4 +131,42 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('js')
+    <script>
+        $(document).ready(function(){
+            $(document.getElementById('remove')).attr('style', 'cursor: pointer');
+            $(document).on('click', '#remove', function() {
+                $(this).closest('div').remove();
+            });
+            
+            $('.imgFile').change(function(){
+                var file = this.files[0];
+                var imagefile = file.type;
+                var match= ["image/jpeg","image/png","image/jpg"];  
+
+                if(!((imagefile==match[0]) || (imagefile==match[1]) || (imagefile==match[2])))
+                {
+                    $('.prodImgPrev').attr('src','{{ asset('img/products/default.png') }}');
+                    return false;
+                }
+                    else
+                {
+                    var reader = new FileReader();  
+                    reader.onload = imageIsLoaded;
+                    reader.readAsDataURL(this.files[0]);
+                }
+            });
+
+            function imageIsLoaded(e){
+                $('.prodImgPrev').attr('src', e.target.result);
+            }
+            
+            $('#reset').on('click', function() {
+                $('#image').val('');
+                $('#prodImgPrev').attr('src', 'data:image/png;base64,{{ base64_encode($product->image) }}');
+            });
+        });
+    </script>
 @endsection

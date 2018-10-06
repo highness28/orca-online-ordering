@@ -29,9 +29,30 @@ class ProductController extends Controller
     }
 
     public function update(ProductRequest $request) {
-    	$product = Product::find($request->id);
+        $product = Product::find($request->id);
 
-        $product->update($request->all());
+        if($request->image) {
+            $file = $request->file('image');
+            $image = $file->openFile()->fread($file->getSize());
+            $product->update([
+                'product_name' => $request->product_name,
+                'category_id' => $request->category,
+                'brand_id' => $request->brand,
+                'item_code' => $request->item_code,
+                'product_price' => $request->product_price,
+                'critical_value' => $request->critical_value,
+                'image' => $image
+            ]);
+        } else {
+            $product->update([
+                'product_name' => $request->product_name,
+                'category_id' => $request->category,
+                'brand_id' => $request->brand,
+                'item_code' => $request->item_code,
+                'product_price' => $request->product_price,
+                'critical_value' => $request->critical_value
+            ]);
+        }
         
         return redirect('/product')
         ->with('message', '<div class="alert alert-info alert-dismissible">
@@ -51,16 +72,31 @@ class ProductController extends Controller
     }
 
     public function create(ProductRequest $request) {
-        Product::create([
-            'product_name' => $request->product_name,
-            'category_id' => $request->category,
-            'brand_id' => $request->brand,
-            'item_code' => $request->item_code,
-            'product_price' => $request->product_price,
-            'critical_value' => $request->critical_value
-        ]);
-
         
+
+        if($request->image) {
+            $file = $request->file('image');
+            $image = $file->openFile()->fread($file->getSize());
+
+            Product::create([
+                'product_name' => $request->product_name,
+                'category_id' => $request->category,
+                'brand_id' => $request->brand,
+                'item_code' => $request->item_code,
+                'product_price' => $request->product_price,
+                'critical_value' => $request->critical_value,
+                'image' => $image
+            ]);
+        } else {
+            Product::create([
+                'product_name' => $request->product_name,
+                'category_id' => $request->category,
+                'brand_id' => $request->brand,
+                'item_code' => $request->item_code,
+                'product_price' => $request->product_price,
+                'critical_value' => $request->critical_value
+            ]);
+        }
         
         return redirect('/product')
         ->with('message', '<div class="alert alert-info alert-dismissible">
@@ -70,3 +106,14 @@ class ProductController extends Controller
                             </div>');
     }
 }
+
+// IMAGE FETCHING CODE
+// Route::get('user/{id}/avatar', function ($id) {
+//     // Find the user
+//     $user = App\User::find(1);
+
+//     // Return the image in the response with the correct MIME type
+//     return response()->make($user->avatar, 200, array(
+//         'Content-Type' => (new finfo(FILEINFO_MIME))->buffer($user->avatar)
+//     ));
+// });

@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="{{ url('bower_components/Ionicons/css/ionicons.min.css') }}">
   <link rel="stylesheet" href="{{ url('dist/css/AdminLTE.min.css') }}">
   <link rel="stylesheet" href="{{ url('dist/css/skins/_all-skins.min.css') }}">
+  <link rel="stylesheet" href="{{ url('dist/css/style.css') }}">
   <link rel="stylesheet" href="{{ url('bower_components/morris.js/morris.css') }}">
   <link rel="stylesheet" href="{{ url('bower_components/jvectormap/jquery-jvectormap.css') }}">
   <link rel="stylesheet" href="{{ url('bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}">
@@ -46,24 +47,23 @@
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="{{ url('dist/img/user2-160x160.jpg') }}" class="user-image" alt="User Image">
-              <span class="hidden-xs">{{ Auth::user()->first_name . ' ' . Auth::user()->last_name }}</span>
+              <span class="hidden-xs">{{ Auth::user()->first_name . ' ' . Auth::user()->last_name }}</span> &nbsp;
+              <i class="fa fa-caret-down"></i>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="{{ url('dist/img/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
-
+                <img src="{{ Auth::user()->avatar ? 'data:image/png;base64,'.base64_encode(Auth::user()->avatar) : url('img/users/default.png') }}" class="img-circle">
                 <p>
                   {{ Auth::user()->first_name . ' ' . Auth::user()->last_name }}
-                  <small>{{ Auth::user()->created_at }}</small>
+                  <small>Joined {{ Auth::user()->created_at->diffForHumans() }}</small>
                 </p>
               </li>
               <!-- Menu Body -->
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Profile</a>
+                  <a href="{{ url('/user') }}" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
                   <form method="POST" action="{{ route('logout') }}">
@@ -86,7 +86,11 @@
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="{{ url('dist/img/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
+          @if(Auth::user()->avatar)
+            <img src="data:image/png;base64,{{ base64_encode(Auth::user()->avatar) }}" class="img-circle" alt="User Image" style="height: 100%">
+          @else
+              <img src="{{ url('/img/users/default.png') }}" class="img-circle" alt="Product" style="width: 100%">
+          @endif
         </div>
         <div class="pull-left info">
           <p>{{ Auth::user()->first_name . ' ' . Auth::user()->last_name }}</p>
