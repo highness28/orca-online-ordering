@@ -71,8 +71,8 @@
       </div>
     </form>
 
-    <a href="{{ route('password.request') }}">{{ __('Forgot Your Password?') }}</a><br>
-
+    <a class="pull-left" href="{{ route('password.request') }}">{{ __('Forgot Password?') }}</a>
+    <a class="pull-right" href="{{ route('register') }}">{{ __('Register') }}</a><br>
   </div>
   <!-- /.login-box-body -->
 </div>

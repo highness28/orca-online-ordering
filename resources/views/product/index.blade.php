@@ -52,7 +52,15 @@
                 <tbody>
                   @foreach($products as $product)
                     <tr>
-                        <td>{{ $product->id }}</td>
+                        <td>
+                          <a href="/product/edit?id={{ $product->id }}">
+                            @if($product->image)
+                              <img src="data:image/png;base64,{{ base64_encode($product->image) }}" alt="Product" style="width: 100%">
+                            @else
+                              <img src="{{ url('/img/products/default.png') }}" alt="Product" style="width: 100%">
+                            @endif
+                          </a>
+                        </td>
                         <td>{{ $product->product_name }}</td>
                         <td>{{ $product->item_code }}</td>
                         <td>{{ $product->category->category_name }}</td>

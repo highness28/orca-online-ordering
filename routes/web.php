@@ -20,6 +20,12 @@ Auth::routes();
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/orders', 'OrderController@index');
 
+
+Route::group(["middleware" => ["auth"]], function() {
+    Route::get("/user", "UserController@index");
+    Route::post("/user", "UserController@update");
+});
+
 Route::group(["middleware" => ["auth", "Admin"]], function() {
     Route::get("/category", "CategoryController@index");
     Route::get("/category/edit", "CategoryController@edit");

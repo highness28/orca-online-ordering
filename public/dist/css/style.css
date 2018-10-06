@@ -1,0 +1,22 @@
+.image_preview {
+    border: #ddd solid 10px;
+    box-shadow: 2px 2px 6px #000;
+    width: 220px;
+    max-height: 300px;
+    overflow: hidden;
+    position: relative; }
+  
+  .image_preview img {
+    width: 100%; }
+  
+  .image_preview label {
+    position: absolute;
+    left: 2px;
+    top: 2px;
+    cursor: pointer;
+    padding-top: 10px;
+    padding-left: 10px;
+    font-size: 20px; }
+  
+  /*# sourceMappingURL=style.css.map */
+  

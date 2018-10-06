@@ -14,7 +14,8 @@ class Product extends Model
         'category_id',
         'item_code',
         'product_price',
-        'critical_value'
+        'critical_value',
+        'image'
     ];
 
     public function brand() {

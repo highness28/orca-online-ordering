@@ -1,33 +1,38 @@
 @extends('layouts.app')
 
 @section("breadCrumbTitle")
-    Product
+    {{ Auth::user()->first_name . ' ' . Auth::user()->last_name }}'s
 @endsection
 
 @section("breadCrumbSubTitle")
-    add
+    profile
 @endsection
 
 @section("breadCrumbList")
-    <li><a href="/product"><i class="fa fa-tag"></i> Product</a></li>
-    <li class="active">New</li>
+    <li><a href="/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
 @endsection
 
 @section('content')
      <div class="content">
         <div class="row">
             <div class="col-xs-12">
+                {!! Session::get('message') !!}
                 <div class="box box-primary">
-                    <div class="box-header with-border"><h4 class="box-title">Product Information</h3></div>
+                    <div class="box-header with-border"><h4 class="box-title">User Information</h3></div>
                     <form method="POST" id="form" enctype="multipart/form-data">
                         {{ csrf_field() }}
+                        <input type="hidden" name="id" value="{{ Auth::user()->id }}">
                         <div class="box-body">
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-xs-4">
                                         <div class="image_preview">
                                             <label for="image"><i class="fa fa-camera"></i></label>
-                                            <img src="{{ asset('img/products/default.png') }}" id="prodImgPrev">
+                                            @if(Auth::user()->avatar)
+                                                <img src="data:image/png;base64,{{ base64_encode(Auth::user()->avatar) }}" class="prodImgPrev" id="prodImgPrev">
+                                            @else
+                                                <img src="{{ url('/img/users/default.png') }}" alt="Product" style="width: 100%" class="prodImgPrev" id="prodImgPrev">
+                                            @endif
                                         </div>
                                         <input type="file" name="image" id="image" class="imgFile hidden" accept="image/x-png,image/gif,image/jpeg" style="display:none;" enctype="multipart/form-data">
                                         <div class="input_error" style="color:#b71c1c;"><i>{{ $errors->first('image') }}</i></div>
@@ -40,41 +45,31 @@
                                     <div class="col-xs-4">
                                         <div class="input-group">
                                             <span class="input-group-addon">
-                                                <i class="fa fa-pencil"></i>
+                                                <i class="fa fa-envelope"></i>
                                             </span>
-                                            <input type="text" name="product_name" class="form-control" placeholder="Product Name" value="{{ old('product_name') }}">
+                                            <input type="text" name="email" class="form-control" placeholder="Email" value="{{ Auth::user()->email }}" autocomplete="off">
                                         </div>
-                                        <div class="input_error" style="color:#b71c1c;"><i>{{ $errors->first('product_name') }}</i></div>
+                                        <div class="input_error" style="color:#b71c1c;"><i>{{ $errors->first('email') }}</i></div>
                                     </div>
 
                                     <div class="col-xs-4">
                                         <div class="input-group">
-                                            <div class="input-group-addon">
-                                                <i class="fa fa-tag"></i>
-                                            </div>
-                                            <select name="brand" id="brand" class="form-control">
-                                                <option value="" disabled selected>Select Brand</option>
-                                                @foreach($brands as $brand)
-                                                    <option value="{{ $brand->id }}" {{ old('brand')==$brand->id? 'selected':'' }}>{{ $brand->brand_name }}</option>
-                                                @endforeach
-                                            </select>
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-lock"></i>
+                                            </span>
+                                            <input type="password" name="password" class="form-control" placeholder="Password" value="" autocomplete="off">
                                         </div>
-                                        <div class="input_error" style="color:#b71c1c;"><i>{{ $errors->first('brand') }}</i></div>
+                                        <div class="input_error" style="color:#b71c1c;"><i>{{ $errors->first('password') }}</i></div>
                                     </div>
 
                                     <div class="col-xs-4">
                                         <div class="input-group">
-                                            <div class="input-group-addon">
-                                                <i class="fa fa-list-alt"></i>
-                                            </div>
-                                            <select name="category" id="category" class="form-control">
-                                                <option value="" disabled selected>Select category</option>
-                                                @foreach($categories as $category)
-                                                    <option value="{{ $category->id }}" {{ old('category')==$category->id? 'selected':'' }}>{{ $category->category_name }}</option>
-                                                @endforeach
-                                            </select>
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-mobile"></i>
+                                            </span>
+                                            <input type="number" name="mobile_number" class="form-control" placeholder="Mobile number" value="{{ Auth::user()->mobile_number }}">
                                         </div>
-                                        <div class="input_error" style="color:#b71c1c;"><i>{{ $errors->first('category') }}</i></div>
+                                        <div class="input_error" style="color:#b71c1c;"><i>{{ $errors->first('mobile_number') }}</i></div>
                                     </div>
                                 </div>
                             </div>
@@ -84,31 +79,31 @@
                                     <div class="col-xs-4">
                                         <div class="input-group">
                                             <span class="input-group-addon">
-                                                <i class="fa fa-code"></i>
+                                                <i class="fa fa-pencil"></i>
                                             </span>
-                                            <input type="text" name="item_code" class="form-control" placeholder="Item Code" value="{{ old('item_code') }}">
+                                            <input type="text" name="first_name" class="form-control" placeholder="First Name" value="{{ Auth::user()->first_name }}">
                                         </div>
-                                        <div class="input_error" style="color:#b71c1c;"><i>{{ $errors->first('item_code') }}</i></div>
+                                        <div class="input_error" style="color:#b71c1c;"><i>{{ $errors->first('first_name') }}</i></div>
+                                    </div>
+                                    
+                                    <div class="col-xs-4">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-pencil"></i>
+                                            </span>
+                                            <input type="text" name="middle_name" class="form-control" placeholder="Middle Name" value="{{ Auth::user()->middle_name }}">
+                                        </div>
+                                        <div class="input_error" style="color:#b71c1c;"><i>{{ $errors->first('middle_name') }}</i></div>
                                     </div>
 
                                     <div class="col-xs-4">
                                         <div class="input-group">
                                             <span class="input-group-addon">
-                                                <i class="fa fa-money"></i>
+                                                <i class="fa fa-pencil"></i>
                                             </span>
-                                            <input type="number" name="product_price" class="form-control" placeholder="Item Price" value="{{ old('product_price') }}">
+                                            <input type="text" name="last_name" class="form-control" placeholder="Last Name" value="{{ Auth::user()->last_name }}">
                                         </div>
-                                        <div class="input_error" style="color:#b71c1c;"><i>{{ $errors->first('product_price') }}</i></div>
-                                    </div>
-
-                                    <div class="col-xs-4">
-                                        <div class="input-group">
-                                            <span class="input-group-addon">
-                                                <i class="fa fa-line-chart"></i>
-                                            </span>
-                                            <input type="number" name="critical_value" class="form-control" placeholder="Critical Value" value="{{ old('critical_value') }}">
-                                        </div>
-                                        <div class="input_error" style="color:#b71c1c;"><i>{{ $errors->first('critical_value') }}</i></div>
+                                        <div class="input_error" style="color:#b71c1c;"><i>{{ $errors->first('last_name') }}</i></div>
                                     </div>
                                 </div>
                             </div>
@@ -142,8 +137,6 @@
                 var imagefile = file.type;
                 var match= ["image/jpeg","image/png","image/jpg"];  
 
-                
-
                 if(!((imagefile==match[0]) || (imagefile==match[1]) || (imagefile==match[2])))
                 {
                     $('.prodImgPrev').attr('src','{{ asset('img/products/default.png') }}');
@@ -158,11 +151,12 @@
             });
 
             function imageIsLoaded(e){
-                $('#prodImgPrev').attr('src', e.target.result);
+                $('.prodImgPrev').attr('src', e.target.result);
             }
             
             $('#reset').on('click', function() {
-                $('#prodImgPrev').attr('src', '{{ asset('img/products/default.png') }}');
+                $('#image').val('');
+                $('#prodImgPrev').attr('src', "{{ Auth::user()->avatar ? 'data:image/png;base64,'.base64_encode(Auth::user()->avatar) : url('img/users/default.png') }}");
             });
         });
     </script>
