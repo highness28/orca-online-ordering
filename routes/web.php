@@ -17,16 +17,16 @@
 
 Auth::routes();
 
-Route::get('/', 'HomeController@index')->name('home');
-Route::get('/orders', 'OrderController@index');
+Auth::routes(['verify' => true]);
 
-
-Route::group(["middleware" => ["auth"]], function() {
+Route::group(["middleware" => ["auth", "verified"]], function() {
+    Route::get('/', 'HomeController@index');
+    Route::get('/home', 'HomeController@index');
     Route::get("/user", "UserController@index");
     Route::post("/user", "UserController@update");
 });
 
-Route::group(["middleware" => ["auth", "Admin"]], function() {
+Route::group(["middleware" => ["auth", "Admin", "verified"]], function() {
     Route::get("/category", "CategoryController@index");
     Route::get("/category/edit", "CategoryController@edit");
     Route::post("/category/edit", "CategoryController@update");
@@ -46,10 +46,11 @@ Route::group(["middleware" => ["auth", "Admin"]], function() {
     Route::post("/product/add", "ProductController@create");
 });
 
-Route::group(['middleware' => ['auth', 'Sales']], function () {
+Route::group(['middleware' => ['auth', 'Sales', "verified"]], function () {
     Route::get('/sales', 'SalesController@index');
+    Route::get('/orders', 'OrderController@index');
 });
 
-Route::group(['middleware' => ['auth', 'Inventory']], function () {
+Route::group(['middleware' => ['auth', 'Inventory', "verified"]], function () {
     Route::get('/inventory', 'InventoryController@index');
 });
