@@ -15,6 +15,8 @@ class Product extends Model
         'item_code',
         'product_price',
         'critical_value',
+        'description',
+        'specification',
         'image'
     ];
 

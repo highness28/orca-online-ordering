@@ -115,6 +115,65 @@
 
                             <div class="form-group">
                                 <div class="row">
+                                    <div class="col-xs-6">
+                                        <div class="box">
+                                            <div class="box-header">
+                                                <h3 class="box-title">
+                                                    Description
+                                                </h3>
+                                                <!-- tools box -->
+                                                <div class="pull-right box-tools">
+                                                    <button type="button" class="btn btn-default btn-sm" data-widget="collapse" data-toggle="tooltip"
+                                                            title="Collapse">
+                                                    <i class="fa fa-minus"></i></button>
+                                                    <button type="button" class="btn btn-default btn-sm" data-widget="remove" data-toggle="tooltip"
+                                                            title="Remove">
+                                                    <i class="fa fa-times"></i></button>
+                                                </div>
+                                                <!-- /. tools -->
+                                                </div>
+                                                <!-- /.box-header -->
+                                                <div class="box-body pad">
+                                                <form>
+                                                    <textarea class="textarea" placeholder="Place input here"
+                                                            name="description" required
+                                                            style="width: 100%; height: 250px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <div class="box">
+                                            <div class="box-header">
+                                                <h3 class="box-title">
+                                                    Specification
+                                                </h3>
+                                                <!-- tools box -->
+                                                <div class="pull-right box-tools">
+                                                    <button type="button" class="btn btn-default btn-sm" data-widget="collapse" data-toggle="tooltip"
+                                                            title="Collapse">
+                                                    <i class="fa fa-minus"></i></button>
+                                                    <button type="button" class="btn btn-default btn-sm" data-widget="remove" data-toggle="tooltip"
+                                                            title="Remove">
+                                                    <i class="fa fa-times"></i></button>
+                                                </div>
+                                                <!-- /. tools -->
+                                                </div>
+                                                <!-- /.box-header -->
+                                                <div class="box-body pad">
+                                                <form>
+                                                    <textarea class="textarea" placeholder="Place input here"
+                                                            name="specification" required
+                                                            style="width: 100%; height: 250px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row">
                                     <div class="col-xs-12">
                                         <button type="submit" class="btn btn-primary "><i class="fa fa-check-square-o"></i> Submit</button>
                                         <button type="reset" id="reset" class="btn btn-danger"><i class="fa fa-ban"></i> Reset</button>

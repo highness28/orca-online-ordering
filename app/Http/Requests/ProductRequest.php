@@ -33,7 +33,9 @@ class ProductRequest extends FormRequest
             'brand' => 'required',
             'item_code' => 'required',
             'product_price' => 'required',
-            'critical_value' => 'required'
+            'critical_value' => 'required',
+            'description' => 'required',
+            'specification' => 'required'
         ];
     }
 }

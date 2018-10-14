@@ -41,6 +41,8 @@ class ProductController extends Controller
                 'item_code' => $request->item_code,
                 'product_price' => $request->product_price,
                 'critical_value' => $request->critical_value,
+                'description' => $request->description,
+                'specification' => $request->specification,
                 'image' => $image
             ]);
         } else {
@@ -50,7 +52,9 @@ class ProductController extends Controller
                 'brand_id' => $request->brand,
                 'item_code' => $request->item_code,
                 'product_price' => $request->product_price,
-                'critical_value' => $request->critical_value
+                'critical_value' => $request->critical_value,
+                'description' => $request->description,
+                'specification' => $request->specification
             ]);
         }
         
@@ -72,8 +76,6 @@ class ProductController extends Controller
     }
 
     public function create(ProductRequest $request) {
-        
-
         if($request->image) {
             $file = $request->file('image');
             $image = $file->openFile()->fread($file->getSize());
@@ -85,6 +87,8 @@ class ProductController extends Controller
                 'item_code' => $request->item_code,
                 'product_price' => $request->product_price,
                 'critical_value' => $request->critical_value,
+                'description' => $request->description,
+                'specification' => $request->specification,
                 'image' => $image
             ]);
         } else {
@@ -94,7 +98,9 @@ class ProductController extends Controller
                 'brand_id' => $request->brand,
                 'item_code' => $request->item_code,
                 'product_price' => $request->product_price,
-                'critical_value' => $request->critical_value
+                'critical_value' => $request->critical_value,
+                'description' => $request->description,
+                'specification' => $request->specification
             ]);
         }
         
