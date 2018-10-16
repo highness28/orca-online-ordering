@@ -53,4 +53,8 @@ Route::group(['middleware' => ['auth', 'Sales', "verified"]], function () {
 
 Route::group(['middleware' => ['auth', 'Inventory', "verified"]], function () {
     Route::get('/inventory', 'InventoryController@index');
+    Route::get('/inventory/add', 'InventoryController@add');
+    Route::post('/inventory/add', 'InventoryController@create');
+    Route::get('/inventory/edit', 'InventoryController@edit');
+    Route::post('/inventory/edit', 'InventoryController@update');
 });

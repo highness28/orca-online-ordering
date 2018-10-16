@@ -1,16 +1,16 @@
 @extends('layouts.app')
 
 @section("breadCrumbTitle")
-    {{ $category->category_name }}
+    {{ $inventory->product->product_name }}
 @endsection
 
 @section("breadCrumbSubTitle")
-    category
+    inventory
 @endsection
 
 @section("breadCrumbList")
-    <li><a href="/category"><i class="fa fa-list-alt"></i> Category</a></li>
-    <li class="active">{{ $category->category_name }}</li>
+    <li><a href="/inventory"><i class="fa fa-line-chart"></i> Inventory</a></li>
+    <li class="active">{{ $inventory->product->product_name }}</li>
 @endsection
 
 @section('content')
@@ -18,7 +18,7 @@
         <div class="row">
             <div class="col-xs-12">
                 <div class="box box-primary">
-                    <div class="box-header with-border"><h4 class="box-title">Category Information</h3></div>
+                    <div class="box-header with-border"><h4 class="box-title">Inventory Information</h3></div>
                     <form method="POST" id="form" enctype="multipart/form-data">
                         {{ csrf_field() }}
                         <div class="box-body">
@@ -27,14 +27,29 @@
                                     <div class="col-xs-12 col-sm-8 col-md-4">
                                         <div class="input-group">
                                             <span class="input-group-addon">
-                                                <i class="fa fa-pencil"></i>
+                                                <i class="fa fa-tag"></i>
                                             </span>
-                                            <input type="text" name="category_name" class="form-control" placeholder="Brand Name" value="{{ $category->category_name }}">
+                                            <input type="text" name="product" class="form-control" placeholder="Product" value="{{ $inventory->product->product_name }}" readonly>
                                         </div>
-                                        <div class="input_error" style="color:#b71c1c;"><i>{{ $errors->first('category_name') }}</i></div>
+                                        <div class="input_error" style="color:#b71c1c;"><i>{{ $errors->first('product') }}</i></div>
+                                    </div>
+
+                                    <div class="col-xs-12 col-sm-8 col-md-4">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-line-chart"></i>
+                                            </span>
+                                            <input type="number" name="quantity" class="form-control" placeholder="Quantity" value="{{ $inventory->quantity }}">
+                                        </div>
+                                        <div class="input_error" style="color:#b71c1c;"><i>{{ $errors->first('quantity') }}</i></div>
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="form-group">
+                                
+                            </div>
+
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-xs-12">

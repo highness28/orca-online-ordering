@@ -18,7 +18,7 @@
         <div class="row">
             <div class="col-xs-12">
                 <div class="box box-primary">
-                    <div class="box-header with-border"><h4 class="box-title">{{ $product->product_name }}</h3></div>
+                    <div class="box-header with-border"><h4 class="box-title">Product Information</h3></div>
                     <form method="POST" id="form" enctype="multipart/form-data">
                         {{ csrf_field() }}
                         <div class="box-body">
