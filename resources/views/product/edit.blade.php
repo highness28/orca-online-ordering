@@ -22,15 +22,16 @@
                     <form method="POST" id="form" enctype="multipart/form-data">
                         {{ csrf_field() }}
                         <div class="box-body">
+
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-xs-4">
                                         <div class="image_preview">
                                             <label for="image"><i class="fa fa-camera"></i></label>
                                             @if($product->image)
-                                            <img src="data:image/png;base64,{{ base64_encode($product->image) }}" class="prodImgPrev" id="prodImgPrev">
+                                                <img src="data:image/png;base64,{{ base64_encode($product->image) }}" alt="Product" id="prodImgPrev">
                                             @else
-                                                <img src="{{ url('/img/products/default.png') }}" alt="Product" style="width: 100%">
+                                                <img src="{{ url('/img/products/default.png') }}" alt="Product" id="prodImgPrev">
                                             @endif
                                         </div>
                                         <input type="file" name="image" id="image" class="imgFile hidden" accept="image/x-png,image/gif,image/jpeg" style="display:none;" enctype="multipart/form-data">
@@ -119,6 +120,7 @@
 
                             <div class="form-group">
                                 <div class="row">
+                                
                                     <div class="col-xs-6">
                                         <div class="box">
                                             <div class="box-header">
@@ -130,9 +132,6 @@
                                                     <button type="button" class="btn btn-default btn-sm" data-widget="collapse" data-toggle="tooltip"
                                                             title="Collapse">
                                                     <i class="fa fa-minus"></i></button>
-                                                    <button type="button" class="btn btn-default btn-sm" data-widget="remove" data-toggle="tooltip"
-                                                            title="Remove">
-                                                    <i class="fa fa-times"></i></button>
                                                 </div>
                                                 <!-- /. tools -->
                                                 </div>
@@ -143,6 +142,7 @@
                                             </div>
                                         </div>
                                     </div>
+
                                     <div class="col-xs-6">
                                         <div class="box">
                                             <div class="box-header">
@@ -154,9 +154,6 @@
                                                     <button type="button" class="btn btn-default btn-sm" data-widget="collapse" data-toggle="tooltip"
                                                             title="Collapse">
                                                     <i class="fa fa-minus"></i></button>
-                                                    <button type="button" class="btn btn-default btn-sm" data-widget="remove" data-toggle="tooltip"
-                                                            title="Remove">
-                                                    <i class="fa fa-times"></i></button>
                                                 </div>
                                                 <!-- /. tools -->
                                                 </div>
@@ -167,6 +164,7 @@
                                             </div>
                                         </div>
                                     </div>
+
                                 </div>
                             </div>
 
@@ -198,7 +196,7 @@
                 var file = this.files[0];
                 var imagefile = file.type;
                 var match= ["image/jpeg","image/png","image/jpg"];  
-
+                
                 if(!((imagefile==match[0]) || (imagefile==match[1]) || (imagefile==match[2])))
                 {
                     $('.prodImgPrev').attr('src','{{ asset('img/products/default.png') }}');
@@ -213,12 +211,11 @@
             });
 
             function imageIsLoaded(e){
-                $('.prodImgPrev').attr('src', e.target.result);
+                $('#prodImgPrev').attr('src', e.target.result);
             }
             
             $('#reset').on('click', function() {
-                $('#image').val('');
-                $('#prodImgPrev').attr('src', 'data:image/png;base64,{{ base64_encode($product->image) }}');
+                $('#prodImgPrev').attr('src', '{{ asset('img/products/default.png') }}');
             });
         });
     </script>

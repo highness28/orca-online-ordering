@@ -18,6 +18,7 @@
 Auth::routes();
 
 Auth::routes(['verify' => true]);
+Route::get('/orders', 'OrderController@index');
 
 Route::group(["middleware" => ["auth", "verified"]], function() {
     Route::get('/', 'HomeController@index');
@@ -48,7 +49,6 @@ Route::group(["middleware" => ["auth", "Admin", "verified"]], function() {
 
 Route::group(['middleware' => ['auth', 'Sales', "verified"]], function () {
     Route::get('/sales', 'SalesController@index');
-    Route::get('/orders', 'OrderController@index');
 });
 
 Route::group(['middleware' => ['auth', 'Inventory', "verified"]], function () {

@@ -43,7 +43,9 @@
                     <th>Product Name</th>
                     <th>Quantity</th>
                     <th>Date</th>
-                    <th width="100">Action</th>
+                    @if(Auth::user()->role == 1)
+                      <th width="100">Action</th>
+                    @endif
                   </tr>
                 </thead>
                 <tbody>
@@ -54,9 +56,11 @@
                         <td>{{ $inventory->product->product_name }}</td>
                         <td>{{ number_format($inventory->quantity) }}</td>
                         <td>{{ date('F d, Y', strtotime($inventory->created_at)) }}</td>
-                        <td>
-                            <a href="/inventory/edit?id={{ $inventory->id }}"><i class="ion ion-compose"></i> Edit</a>
-                        </td>
+                        @if(Auth::user()->role == 1)
+                          <td>
+                              <a href="/inventory/edit?id={{ $inventory->id }}"><i class="ion ion-compose"></i> Edit</a>
+                          </td>
+                        @endif
                     </tr>
                   @endforeach
 

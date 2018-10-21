@@ -115,6 +115,7 @@
 
                             <div class="form-group">
                                 <div class="row">
+                                
                                     <div class="col-xs-6">
                                         <div class="box">
                                             <div class="box-header">
@@ -126,22 +127,19 @@
                                                     <button type="button" class="btn btn-default btn-sm" data-widget="collapse" data-toggle="tooltip"
                                                             title="Collapse">
                                                     <i class="fa fa-minus"></i></button>
-                                                    <button type="button" class="btn btn-default btn-sm" data-widget="remove" data-toggle="tooltip"
-                                                            title="Remove">
-                                                    <i class="fa fa-times"></i></button>
                                                 </div>
                                                 <!-- /. tools -->
                                                 </div>
                                                 <!-- /.box-header -->
                                                 <div class="box-body pad">
-                                                <form>
-                                                    <textarea class="textarea" placeholder="Place input here"
-                                                            name="description" required
-                                                            style="width: 100%; height: 250px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
-                                                </form>
+                                                <textarea class="textarea" placeholder="Place input here"
+                                                        name="description" required
+                                                        style="width: 100%; height: 250px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">{{ old('description') }}</textarea>
+                                                <div class="input_error" style="color:#b71c1c;"><i>{{ $errors->first('description') }}</i></div>
                                             </div>
                                         </div>
                                     </div>
+
                                     <div class="col-xs-6">
                                         <div class="box">
                                             <div class="box-header">
@@ -153,22 +151,19 @@
                                                     <button type="button" class="btn btn-default btn-sm" data-widget="collapse" data-toggle="tooltip"
                                                             title="Collapse">
                                                     <i class="fa fa-minus"></i></button>
-                                                    <button type="button" class="btn btn-default btn-sm" data-widget="remove" data-toggle="tooltip"
-                                                            title="Remove">
-                                                    <i class="fa fa-times"></i></button>
                                                 </div>
                                                 <!-- /. tools -->
                                                 </div>
                                                 <!-- /.box-header -->
                                                 <div class="box-body pad">
-                                                <form>
-                                                    <textarea class="textarea" placeholder="Place input here"
-                                                            name="specification" required
-                                                            style="width: 100%; height: 250px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
-                                                </form>
+                                                <textarea class="textarea" placeholder="Place input here"
+                                                        name="specification" required
+                                                        style="width: 100%; height: 250px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">{{ old('specification') }}</textarea>
+                                                <div class="input_error" style="color:#b71c1c;"><i>{{ $errors->first('specification') }}</i></div>
                                             </div>
                                         </div>
                                     </div>
+
                                 </div>
                             </div>
 
@@ -200,8 +195,6 @@
                 var file = this.files[0];
                 var imagefile = file.type;
                 var match= ["image/jpeg","image/png","image/jpg"];  
-
-                
 
                 if(!((imagefile==match[0]) || (imagefile==match[1]) || (imagefile==match[2])))
                 {
