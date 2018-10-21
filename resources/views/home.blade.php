@@ -20,7 +20,7 @@
         <!-- small box -->
         <div class="small-box bg-aqua">
         <div class="inner">
-            <h3>{{ number_format(count($invoice)) }}</h3>
+            <h4>{{ number_format(count($invoice)) }}</h4>
 
             <p>New Orders</p>
         </div>
@@ -35,7 +35,7 @@
         <!-- small box -->
         <div class="small-box bg-green">
         <div class="inner">
-            <h3>{{ 'Php ' . number_format($totalSales, 2) }}</h3>
+            <h4>{{ 'Php ' . number_format($totalSales, 2) }}</h4>
 
             <p>Sales</p>
         </div>
@@ -50,7 +50,7 @@
         <!-- small box -->
         <div class="small-box bg-yellow">
         <div class="inner">
-            <h3>{{ number_format($ordersQuantity) }}</h3>
+            <h4>{{ number_format($ordersQuantity) }}</h4>
 
             <p>Products Sold</p>
         </div>
