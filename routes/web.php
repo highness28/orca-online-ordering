@@ -28,6 +28,12 @@ Route::group(["middleware" => ["auth", "verified"]], function() {
 });
 
 Route::group(["middleware" => ["auth", "Admin", "verified"]], function() {
+    Route::get("/featured-category", "FeaturedCategoryController@index");
+    Route::get("/featured-category/edit", "FeaturedCategoryController@edit");
+    Route::post("/featured-category/edit", "FeaturedCategoryController@update");
+    Route::get("/featured-category/add", "FeaturedCategoryController@add");
+    Route::post("/featured-category/add", "FeaturedCategoryController@create");
+
     Route::get("/category", "CategoryController@index");
     Route::get("/category/edit", "CategoryController@edit");
     Route::post("/category/edit", "CategoryController@update");
