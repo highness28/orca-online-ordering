@@ -44,13 +44,13 @@
                     <th>Email</th>
                     <th>Contact</th>
                     <th>Total</th>
-                    <th>Date</th>
+                    <th>Date Ordered</th>
+                    <th>Delivery Date</th>
                     <th>Status</th>
                     <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
-                  
                   @foreach($invoice as $order)
                     <tr>
                       <td>{{ $order->id }}</td>
@@ -59,13 +59,13 @@
                       <td>{{ $order->customer->phone_number }}</td>
                       <td>{{ 'Php ' . number_format($order->total, 2) }}</td>
                       <td>{{ date('F d, Y', strtotime($order->created_at)) }}</td>
-                      <td>{{ $order->status == 0 ? 'Inventory Check' : ($order->status == 1 ? 'For Delivery' : 'Cancelled') }}</td>
+                      <td>{{ $order->delivery_date ? date('F d, Y', strtotime($order->delivery_date)) : 'Not set' }}</td>
+                      <td>{{ $order->status == 0 ? 'Inventory Check' : ($order->status == 1 ? 'Sales Check' : 'For Delivery') }}</td>
                       <td>
-                        <a href="/invoice/edit?id={{ $order->id }}"><i class="ion ion-compose"></i> Edit</a>
+                        <a href="/orders/edit?id={{ $order->id }}"><i class="ion ion-compose"></i> Edit</a>
                       </td>
                     </tr>
                   @endforeach
-
                 </tbody>
               </table>
             </div>         

@@ -19,6 +19,8 @@ Auth::routes();
 
 Auth::routes(['verify' => true]);
 Route::get('/orders', 'OrderController@index');
+Route::get('/orders/edit', 'OrderController@edit');
+Route::post('/orders/edit', 'OrderController@update');
 
 Route::group(["middleware" => ["auth", "verified"]], function() {
     Route::get('/', 'HomeController@index');
