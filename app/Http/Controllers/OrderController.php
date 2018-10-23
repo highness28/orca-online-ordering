@@ -74,9 +74,9 @@ class OrderController extends Controller
 
     public function deliver(Request $request) {
         $invoice = Invoice::find($request->id);
-        // $invoice->update([
-        //     'status' => 3
-        // ]);
+        $invoice->update([
+            'status' => 3
+        ]);
         $orders = OrderList::where('invoice_id', $invoice->id)->get();
 
         $customer = Customer::where('id', $invoice->customer_id)->first();
