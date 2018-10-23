@@ -61,7 +61,12 @@ class OrderController extends Controller
                 'delivery_date' => $deliveryDate
             ]);
             
+            $orders = OrderList::where('invoice_id', $invoice->id)->get();
+
+            $customer = Customer::where('id', $invoice->customer_id)->first();
+            $customerAccount = CustomerAccount::where('customer_id', $customer->id)->first();
             
+            $customerAccount->notify(new InvoiceDelivery($invoice, $customer, $orders));
             
             return redirect('/orders')
             ->with('message', '<div class="alert alert-info alert-dismissible">
@@ -77,12 +82,6 @@ class OrderController extends Controller
         $invoice->update([
             'status' => 3
         ]);
-        $orders = OrderList::where('invoice_id', $invoice->id)->get();
-
-        $customer = Customer::where('id', $invoice->customer_id)->first();
-        $customerAccount = CustomerAccount::where('customer_id', $customer->id)->first();
-        
-        $customerAccount->notify(new InvoiceDelivery($invoice, $customer, $orders));
         
         return redirect('/orders')
             ->with('message', '<div class="alert alert-info alert-dismissible">
