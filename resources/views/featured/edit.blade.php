@@ -45,7 +45,7 @@
                                     <div class="col-xs-12 col-sm-8 col-md-4">
                                         <select class="form-control select2" style="width: 100%;" data-placeholder="Select a Category" name="category" >
                                             @foreach($categories as $category)
-                                                <option value="{{ $category->id }}" {{ $selectedCategory->id == $category->id ? 'selected' : '' }}>{{ $category->category_name }}</option>
+                                                <option value="{{ $category->id }}" {{ $selectedCategory->category_id == $category->id ? 'selected' : '' }}>{{ $category->category_name }}</option>
                                             @endforeach
                                         </select>
                                         <div class="input_error" style="color:#b71c1c;"><i>{{ $errors->first('category') }}</i></div>
