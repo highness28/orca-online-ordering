@@ -70,7 +70,7 @@
                                 </div>
                             </div>
 
-                            @if($invoice->delivery_date >= date('Y-m-d') || $invoice->delivery_date == null)
+                            @if($invoice->status < 2)
                                 @if(Auth::user()->role != 3 && $invoice->status != 0)
                                     <div class="row" style="margin-top: 50px;">
                                         <div class="form-group">
@@ -95,16 +95,20 @@
                                         <em>set the order that it is ready for delivery on the date selected.</em>
                                     @endif
                                 </div>
-                                
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-xs-12">
-                                            <button type="submit" class="btn btn-primary "><i class="fa fa-check-square-o"></i> Submit</button>
-                                            <button type="reset" id="reset" class="btn btn-danger"><i class="fa fa-ban"></i> Reset</button>
-                                        </div>
+                            @endif
+                            
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        @if($invoice->status == 2)
+                                            <a href="{{ url('/orders/deliver/'.$invoice->id) }}" class="btn btn-success"><i class="fa fa-calendar"></i> Set Delivered</a>
+                                        @elseif($invoice->status != 3)
+                                            <button type="submit" class="btn btn-primary"><i class="fa fa-check-square-o"></i> Submit</button>
+                                        @endif
                                     </div>
                                 </div>
-                            @endif
+                            </div>
+
                         </div>
                     </form>
                 </div>

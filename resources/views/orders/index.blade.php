@@ -25,7 +25,7 @@
 
           <div class="box box-primary">
             <div class="box-header with-border">
-              <h4 class="box-title">Order List</h4>
+              <h4 class="box-title">Invoice List</h4>
               
               <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -60,7 +60,7 @@
                       <td>{{ 'Php ' . number_format($order->total, 2) }}</td>
                       <td>{{ date('F d, Y', strtotime($order->created_at)) }}</td>
                       <td>{{ $order->delivery_date ? date('F d, Y', strtotime($order->delivery_date)) : 'Not set' }}</td>
-                      <td>{{ $order->status == 0 ? 'Inventory Check' : ($order->status == 1 ? 'Sales Check' : 'For Delivery') }}</td>
+                      <td>{{ $order->status == 0 ? 'Inventory Check' : ($order->status == 1 ? 'Sales Check' : ($order->status == 2 ? 'For Delivery' : 'Delivered')) }}</td>
                       <td>
                         <a href="/orders/edit?id={{ $order->id }}"><i class="ion ion-compose"></i> Edit</a>
                       </td>
