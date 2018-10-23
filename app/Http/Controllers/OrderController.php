@@ -83,8 +83,6 @@ class OrderController extends Controller
         $customerAccount = CustomerAccount::where('customer_id', $customer->id)->first();
         
         $customerAccount->notify(new InvoiceDelivery($invoice, $customer, $orders));
-
-        dd("SUCCESS");
         
         return redirect('/orders')
             ->with('message', '<div class="alert alert-info alert-dismissible">
