@@ -26,9 +26,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $invoice = Invoice::where('status', 0)->get();
-        $totalSales = Invoice::where('status', "!=", 4)->sum("total"); // not cancelled
-        $ordersQuantity = OrderList::join('invoice', 'invoice.id', 'invoice_id')->where('invoice.status', '!=', 4)->count();
+        $invoice = Invoice::where('status', '<', 3)->get();
+        $totalSales = Invoice::where('status', "==", 3)->sum("total"); // not cancelled
+        $ordersQuantity = OrderList::join('invoice', 'invoice.id', 'invoice_id')->where('invoice.status', '=', 3)->count();
         $customers = Customer::count();
 
         return view('home')
