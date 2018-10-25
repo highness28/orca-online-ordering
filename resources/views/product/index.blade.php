@@ -46,12 +46,13 @@
                     <th>Brand</th>
                     <th>Price</th>
                     <th>Critical Value</th>
+                    <th>Quantity Left</th>
                     <th width="100">Action</th>
                   </tr>
                 </thead>
                 <tbody>
                   @foreach($products as $product)
-                    <tr>
+                    <tr {!! $product->critical_value >= getStock($product->id) ? 'class="danger"':'' !!}>
                         <td>
                           <a href="/product/edit?id={{ $product->id }}">
                             @if($product->image)
@@ -65,8 +66,9 @@
                         <td>{{ $product->item_code }}</td>
                         <td>{{ $product->category->category_name }}</td>
                         <td>{{ $product->brand->brand_name }}</td>
-                        <td>{{ $product->product_prie }}</td>
+                        <td>{{ 'Php ' . number_format($product->product_price, 2) }}</td>
                         <td>{{ $product->critical_value }}</td>
+                        <td>{{ getStock($product->id) }}</td>
                         <td>
                             <a href="/product/edit?id={{ $product->id }}"><i class="ion ion-compose"></i> Edit</a>
                         </td>

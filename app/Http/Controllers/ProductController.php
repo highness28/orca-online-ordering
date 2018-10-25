@@ -11,7 +11,9 @@ use App\Http\Requests\ProductRequest;
 class ProductController extends Controller
 {
     public function index() {
-        $products = Product::with('brand')->with('category')->get();
+        $products = Product::with('brand')
+        ->with('category')
+        ->get();
 
         return view('product.index')
         ->with('products', $products);
