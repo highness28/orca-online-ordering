@@ -40,10 +40,10 @@
                 <thead>
                   <tr>
                     <th width="50">#</th>
-                    <th>Category Name</th>
-                    <th>Title</th>
-                    <th>Status</th>
-                    <th>Action</th>
+                    <th>CATEGORY NAME</th>
+                    <th>TITLE</th>
+                    <th>STATS</th>
+                    <th>ACTION</th>
                   </tr>
                 </thead>
                 <tbody>

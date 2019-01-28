@@ -40,14 +40,14 @@
                 <thead>
                   <tr>
                     <th width="50">#</th>
-                    <th>Product Name</th>
-                    <th>Item Code</th>
-                    <th>Category</th>
-                    <th>Brand</th>
-                    <th>Price</th>
-                    <th>Critical Value</th>
-                    <th>Quantity Left</th>
-                    <th width="100">Action</th>
+                    <th>PRODUCT NAME</th>
+                    <th>ITEM CODE</th>
+                    <th>CATEGORY</th>
+                    <th>BRAND</th>
+                    <th>PRICE</th>
+                    <th>CRITICAL VALUE</th>
+                    <th>QUANTITY LEFT</th>
+                    <th width="100">ACTION</th>
                   </tr>
                 </thead>
                 <tbody>

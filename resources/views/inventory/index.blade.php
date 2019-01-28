@@ -40,11 +40,11 @@
                 <thead>
                   <tr>
                     <th width="50">#</th>
-                    <th>Product Name</th>
-                    <th>Quantity</th>
-                    <th>Date</th>
+                    <th>PRODUCT NAME</th>
+                    <th>QUANTITY</th>
+                    <th>DATE</th>
                     @if(Auth::user()->role == 1)
-                      <th width="100">Action</th>
+                      <th width="100">ACTION</th>
                     @endif
                   </tr>
                 </thead>

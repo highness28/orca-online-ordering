@@ -40,8 +40,8 @@
                 <thead>
                   <tr>
                     <th width="50">#</th>
-                    <th>Brand Name</th>
-                    <th width="100">Action</th>
+                    <th>BRAND NAME</th>
+                    <th width="100">ACTION</th>
                   </tr>
                 </thead>
                 <tbody>

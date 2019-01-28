@@ -39,14 +39,14 @@
               <table id="brand_table" class="table table-bordered table-striped">
                 <thead>
                   <tr>
-                    <th width="100">Invoice #</th>
-                    <th>Customer</th>
-                    <th>Email</th>
-                    <th>Contact</th>
-                    <th>Total</th>
-                    <th>Date Ordered</th>
-                    <th>Delivery Date</th>
-                    <th>Status</th>
+                    <th width="100">INVOICE #</th>
+                    <th>CUSTOMER`</th>
+                    <th>EMAIL</th>
+                    <th>CONTACT</th>
+                    <th>TOTAL</th>
+                    <th>DATE ORDERED</th>
+                    <th>DELIVERY DATE</th>
+                    <th>STATUS</th>
                   </tr>
                 </thead>
                 <tbody>
