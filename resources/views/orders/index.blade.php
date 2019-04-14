@@ -35,8 +35,8 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-              <!-- <a href="/brand/add" class="btn-sm btn-success"><i class="fa fa-plus"></i>&nbsp; Add New Brand</a> -->
-              <table id="brand_table" class="table table-bordered table-striped">
+
+              <table id="orders_table" class="table table-bordered table-striped">
                 <thead>
                   <tr>
                     <th width="100">INVOICE #</th>
@@ -62,7 +62,11 @@
                       <td>{{ $order->delivery_date ? date('F d, Y', strtotime($order->delivery_date)) : 'Not set' }}</td>
                       <td>{{ $order->status == 0 ? 'Inventory Check' : ($order->status == 1 ? 'Sales Check' : ($order->status == 2 ? 'For Delivery' : 'Delivered')) }}</td>
                       <td>
-                        <a href="/orders/edit?id={{ $order->id }}"><i class="ion ion-compose"></i> Edit</a>
+                        @if($order->status != 3)
+                          <a href="/orders/edit?id={{ $order->id }}"><i class="ion ion-compose"></i>
+                            {{ $order->status == 0 ? 'Pass to sales' : ($order->status == 1 ? 'Set for delivery' : ($order->status == 2 ? 'Set as delivered' : '')) }}
+                          </a>
+                        @endif
                       </td>
                     </tr>
                   @endforeach
@@ -79,11 +83,11 @@
   <script src="{{ asset('bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
   <script>
     $(function () {
-      $('#brand_table').DataTable({
+      $('#orders_table').DataTable({
         'paging'      : true,
         'lengthChange': false,
         'searching'   : true,
-        'ordering'    : false,
+        'ordering'    : true,
         'info'        : true,
         'autoWidth'   : true
       });
