@@ -62,13 +62,13 @@
                             @endif
                           </a>
                         </td>
-                        <td>{{ $product->product_name }}</td>
-                        <td>{{ $product->item_code }}</td>
-                        <td>{{ $product->category->category_name }}</td>
-                        <td>{{ $product->brand->brand_name }}</td>
-                        <td>{{ 'Php ' . number_format($product->product_price, 2) }}</td>
-                        <td>{{ $product->critical_value }}</td>
-                        <td>{{ getStock($product->id) }}</td>
+                        <td style="font-size: 18px;">{{ $product->product_name }}</td>
+                        <td style="font-size: 18px;">{{ $product->item_code }}</td>
+                        <td style="font-size: 18px;">{{ $product->category->category_name }}</td>
+                        <td style="font-size: 18px;">{{ $product->brand->brand_name }}</td>
+                        <td style="font-size: 18px;">{{ 'Php ' . number_format($product->product_price, 2) }}</td>
+                        <td style="font-size: 18px;">{{ $product->critical_value }}</td>
+                        <td style="font-size: 18px;">{{ getStock($product->id) }}</td>
                         <td>
                             <a href="/product/edit?id={{ $product->id }}"><i class="ion ion-compose"></i> Edit</a>
                         </td>
@@ -94,7 +94,8 @@
         'searching'   : true,
         'ordering'    : true,
         'info'        : true,
-        'autoWidth'   : true
+        'autoWidth'   : true,
+        'scrollX'      : true
       });
     });
   </script>

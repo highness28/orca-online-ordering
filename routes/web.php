@@ -54,6 +54,8 @@ Route::group(["middleware" => ["auth", "Admin", "verified"]], function() {
     Route::post("/product/edit", "ProductController@update");
     Route::get("/product/add", "ProductController@add");
     Route::post("/product/add", "ProductController@create");
+
+    Route::get("/product/delete/{id}", "ProductController@delete");
 });
 
 Route::group(['middleware' => ['auth', 'Sales', "verified"]], function () {

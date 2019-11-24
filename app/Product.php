@@ -17,7 +17,8 @@ class Product extends Model
         'critical_value',
         'description',
         'specification',
-        'image'
+        'image',
+        'deleted_at'
     ];
 
     public function brand() {

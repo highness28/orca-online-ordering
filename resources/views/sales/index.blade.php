@@ -52,14 +52,14 @@
                 <tbody>
                   @foreach($invoice as $order)
                     <tr>
-                      <td>{{ $order->id }}</td>
-                      <td>{{ $order->customer->first_name . ' ' . $order->customer->last_name }}</td>
-                      <td>{{ $order->customer->account->email }}</td>
-                      <td>{{ $order->customer->phone_number }}</td>
-                      <td>{{ 'Php ' . number_format($order->total, 2) }}</td>
-                      <td>{{ date('F d, Y', strtotime($order->created_at)) }}</td>
-                      <td>{{ $order->delivery_date ? date('F d, Y', strtotime($order->delivery_date)) : 'Not set' }}</td>
-                      <td>Delivered</td>
+                      <td syle="font-size: 18px;">{{ $order->id }}</td>
+                      <td syle="font-size: 18px;">{{ $order->customer->first_name . ' ' . $order->customer->last_name }}</td>
+                      <td syle="font-size: 18px;">{{ $order->customer->account->email }}</td>
+                      <td syle="font-size: 18px;">{{ $order->customer->phone_number }}</td>
+                      <td syle="font-size: 18px;">{{ 'Php ' . number_format($order->total, 2) }}</td>
+                      <td syle="font-size: 18px;">{{ date('F d, Y', strtotime($order->created_at)) }}</td>
+                      <td syle="font-size: 18px;">{{ $order->delivery_date ? date('F d, Y', strtotime($order->delivery_date)) : 'Not set' }}</td>
+                      <td syle="font-size: 18px;">Delivered</td>
                     </tr>
                   @endforeach
                 </tbody>
@@ -81,7 +81,8 @@
         'searching'   : true,
         'ordering'    : false,
         'info'        : true,
-        'autoWidth'   : true
+        'autoWidth'   : true,
+        'scrollX'     : true
       });
     });
   </script>

@@ -13,10 +13,26 @@ class ProductController extends Controller
     public function index() {
         $products = Product::with('brand')
         ->with('category')
+        ->where('deleted_at', '=', NULL)
         ->get();
 
         return view('product.index')
         ->with('products', $products);
+    }
+
+    public function delete(Request $request) {
+        $product = Product::find($request->id);
+
+        $product->update([
+            'deleted_at' => date('Y-m-d h:i:s')
+        ]);
+
+        return redirect('/product')
+        ->with('message', '<div class="alert alert-info alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            <h4><i class="icon fa fa-check"></i> Success</h4>
+                            You have successfully deleted a product.
+                            </div>');
     }
 
     public function edit(Request $request) {

@@ -172,7 +172,8 @@
                                 <div class="row">
                                     <div class="col-xs-12">
                                         <button type="submit" class="btn btn-primary "><i class="fa fa-check-square-o"></i> Submit</button>
-                                        <button type="reset" id="reset" class="btn btn-danger"><i class="fa fa-ban"></i> Reset</button>
+                                        <button type="reset" id="reset" class="btn btn-info"><i class="fa fa-ban"></i> Reset</button>
+                                        <a href="{{ url('/product/delete/'.$product->id) }}" class="btn btn-danger">Remove Product</a>
                                     </div>
                                 </div>
                             </div>

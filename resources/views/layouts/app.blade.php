@@ -111,23 +111,23 @@
 
 
         
-        <li><a href="{{ url('/') }}"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
+        <li><a href="{{ url('/') }}"><i class="fa fa-dashboard"></i> <span style="font-size: 16px;">Dashboard</span></a></li>
 
-        <li><a href="{{ url('/orders') }}"><i class="fa fa-book"></i> <span>Orders</span></a></li>
+        <li><a href="{{ url('/orders') }}"><i class="fa fa-book"></i> <span style="font-size: 16px;">Orders</span></a></li>
         
         @if(in_array(Auth::user()->role, [1]))
-          <li><a href="{{ url('/featured-category') }}"><i class="fa fa-tags"></i> <span>Featured Category</span></a></li>
-          <li><a href="{{ url('/product') }}"><i class="fa fa-product-hunt"></i> <span>Products</span></a></li>
-          <li><a href="{{ url('/brand') }}"><i class="fa fa-tag"></i> <span>Brands</span></a></li>
-          <li><a href="{{ url('/category') }}"><i class="fa fa-list-alt"></i> <span>Category</span></a></li>
+          <li><a href="{{ url('/featured-category') }}"><i class="fa fa-tags"></i> <span style="font-size: 16px;">Featured Category</span></a></li>
+          <li><a href="{{ url('/product') }}"><i class="fa fa-product-hunt"></i> <span style="font-size: 16px;">Products</span></a></li>
+          <li><a href="{{ url('/brand') }}"><i class="fa fa-tag"></i> <span style="font-size: 16px;">Brands</span></a></li>
+          <li><a href="{{ url('/category') }}"><i class="fa fa-list-alt"></i> <span style="font-size: 16px;">Category</span></a></li>
         @endif
         
         @if(in_array(Auth::user()->role, [1,2]))
-          <li><a href="{{ url('/sales') }}"><i class="fa fa-dollar"></i> <span>Sales</span></a></li>
+          <li><a href="{{ url('/sales') }}"><i class="fa fa-dollar"></i> <span style="font-size: 16px;">Sales</span></a></li>
         @endif
         
         @if(in_array(Auth::user()->role, [1,3]))
-          <li><a href="{{ url('/inventory') }}"><i class="fa fa-dropbox"></i> <span>Inventory</span></a></li>
+          <li><a href="{{ url('/inventory') }}"><i class="fa fa-dropbox"></i> <span style="font-size: 16px;">Inventory</span></a></li>
         @endif
         
         <li class="header">LABELS</li>

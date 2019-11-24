@@ -52,12 +52,12 @@
                   
                   @foreach($inventories as $inventory)
                     <tr>
-                        <td>{{ $inventory->id }}</td>
-                        <td>{{ $inventory->product->product_name }}</td>
-                        <td>{{ number_format($inventory->quantity) }}</td>
-                        <td>{{ date('F d, Y', strtotime($inventory->created_at)) }}</td>
+                        <td style="font-size: 18px;">{{ $inventory->id }}</td>
+                        <td style="font-size: 18px;">{{ $inventory->product->product_name }}</td>
+                        <td style="font-size: 18px;">{{ number_format($inventory->quantity) }}</td>
+                        <td style="font-size: 18px;">{{ date('F d, Y', strtotime($inventory->created_at)) }}</td>
                         @if(Auth::user()->role == 1)
-                          <td>
+                          <td style="font-size: 18px;">
                               <a href="/inventory/edit?id={{ $inventory->id }}"><i class="ion ion-compose"></i> Edit</a>
                           </td>
                         @endif

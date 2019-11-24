@@ -39,7 +39,8 @@
 
                             <p><strong>Tacking number:</strong> {{ $invoice->tracking_number }}</p>
                             <p><strong>Date orderd:</strong> {{ date('F d, Y', strtotime($invoice->created_at)) }}</p>
-                            
+                            <p><strong>Payment mode:</strong> {{ $invoice->payment_type == 0 ? "Cash on Delivery" : "Card" }}</p>
+
                             <div class="row">
                                 <div class="col-xs-12">
                                     <span><strong>Products Ordered:</strong></span>
