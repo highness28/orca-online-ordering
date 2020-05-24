@@ -60,6 +60,7 @@ Route::group(["middleware" => ["auth", "Admin", "verified"]], function() {
 
 Route::group(['middleware' => ['auth', 'Sales', "verified"]], function () {
     Route::get('/sales', 'SalesController@index');
+    Route::get('/sales/print', 'SalesController@print');
 });
 
 Route::group(['middleware' => ['auth', 'Inventory', "verified"]], function () {

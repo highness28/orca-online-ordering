@@ -35,18 +35,20 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-              <!-- <a href="/brand/add" class="btn-sm btn-success"><i class="fa fa-plus"></i>&nbsp; Add New Brand</a> -->
-              <table id="brand_table" class="table table-bordered table-striped">
+              <form method="GET" action="/sales/print">
+                <input type="hidden" name='invoice' value="{{ $invoice }}"/>
+                <button type='submit' class="btn-sm btn-info"><i class="fa fa-print"></i>&nbsp; Print</button>
+              </form>
+              <table id="sales_table" class="table table-bordered table-striped">
                 <thead>
                   <tr>
                     <th width="100">INVOICE #</th>
-                    <th>CUSTOMER`</th>
+                    <th>CUSTOMER</th>
                     <th>EMAIL</th>
                     <th>CONTACT</th>
                     <th>TOTAL</th>
                     <th>DATE ORDERED</th>
                     <th>DELIVERY DATE</th>
-                    <th>STATUS</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -59,7 +61,6 @@
                       <td syle="font-size: 18px;">{{ 'Php ' . number_format($order->total, 2) }}</td>
                       <td syle="font-size: 18px;">{{ date('F d, Y', strtotime($order->created_at)) }}</td>
                       <td syle="font-size: 18px;">{{ $order->delivery_date ? date('F d, Y', strtotime($order->delivery_date)) : 'Not set' }}</td>
-                      <td syle="font-size: 18px;">Delivered</td>
                     </tr>
                   @endforeach
                 </tbody>
@@ -75,14 +76,13 @@
   <script src="{{ asset('bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
   <script>
     $(function () {
-      $('#brand_table').DataTable({
+      $('#sales_table').DataTable({
         'paging'      : true,
         'lengthChange': false,
         'searching'   : true,
         'ordering'    : false,
         'info'        : true,
-        'autoWidth'   : true,
-        'scrollX'     : true
+        'autoWidth'   : true
       });
     });
   </script>
