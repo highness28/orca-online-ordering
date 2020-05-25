@@ -8,6 +8,7 @@ use App\Product;
 use App\Brand;
 use App\Category;
 use App\Http\Requests\ProductRequest;
+use App\Helpers\ProductHelper;
 
 class ProductController extends Controller
 {
@@ -34,6 +35,77 @@ class ProductController extends Controller
                             <h4><i class="icon fa fa-check"></i> Success</h4>
                             You have successfully deleted a product.
                             </div>');
+    }
+
+    public function reorder_print(Request $reuqest) {
+        $products = Product::with('brand')
+        ->with('category')
+        ->where('deleted_at', '=', NULL)
+        ->get()
+        ->toArray();
+
+        $filteredProducts = array_filter($products, function($product) {
+            return ($product['critical_value'] >= getStock($product['id']));
+        });
+
+        $pdf = app('Fpdf');
+        $pdf->AddPage('L');
+
+        $w = array(60, 40, 35, 35, 40, 20, 40);
+        $header = [
+            "Product Name",
+            "Item Code",
+            "Category",
+            "Brand",
+            "Price",
+            "Quantity",
+            "Subtotal"
+        ];
+
+        // Report Header
+        $pdf->SetFont('Arial', '', 16);
+        $pdf->Cell(array_sum($w)-50, 15, "Reorder Report");
+        $pdf->SetFont('Arial', '', 12);
+        $pdf->Cell(50, 15, date('F d, Y'), '', 'B', 'R');
+        $pdf->Ln();
+
+        // Table Header
+        $pdf->SetFont('Arial','',12);
+        for($i=0;$i<count($header);$i++) {
+            $pdf->Cell($w[$i], 7, $header[$i], 1, 0, 'C');
+        }
+
+        // Data
+        $pdf->Ln();
+        $pdf->SetFont('Arial','',10);
+        $grandTotal = 0;
+        $quantityTotal = 0;
+        foreach($filteredProducts as $filtered) {
+            // dd($filtered);
+
+            $pdf->Cell($w[0], 6, $filtered['product_name'], 'LRB', 0, 'L');
+            $pdf->Cell($w[1], 6, $filtered['item_code'], 'LRB', 0, 'R');
+            $pdf->Cell($w[2], 6, $filtered['category']['category_name'], 'LRB', 0, 'L');
+            $pdf->Cell($w[3], 6, $filtered['brand']['brand_name'], 'LRB', 0, 'L');
+            $pdf->Cell($w[4], 6, 'Php ' . number_format($filtered['product_price'], 2), 'LRB', 0, 'R');
+            $pdf->Cell($w[5], 6, $filtered['critical_value'] * 10, 'LRB', 0, 'R');
+            $pdf->Cell($w[6], 6, 'Php ' . number_format($filtered['critical_value'] * 10 * $filtered['product_price'], 2), 'LRB', 0, 'R');
+            $pdf->Ln();
+
+            $quantityTotal += $filtered['critical_value'] * 10;
+            $grandTotal += $filtered['critical_value'] * 10 * $filtered['product_price'];
+        }
+
+        // Closing line
+        $pdf->Cell($w[0], 6, 'Total', 'LB', 0, 'L');
+        $pdf->Cell($w[1], 6, '', 'B');
+        $pdf->Cell($w[2], 6, '', 'B');
+        $pdf->Cell($w[3], 6, '', 'B');
+        $pdf->Cell($w[4], 6, '', 'B', 0, 'R');
+        $pdf->Cell($w[5], 6, $quantityTotal, 'LB', 0, 'R');
+        $pdf->Cell($w[6], 6, 'Php ' . number_format($grandTotal, 2), 'LRB', 0, 'R');
+        $pdf->Ln();
+        $pdf->output();
     }
 
     public function print(Request $request) {

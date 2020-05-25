@@ -56,6 +56,7 @@ Route::group(["middleware" => ["auth", "Admin", "verified"]], function() {
     Route::get("/product/add", "ProductController@add");
     Route::post("/product/add", "ProductController@create");
     Route::get("/product/print", "ProductController@print");
+    Route::get("/product/reorder/print", "ProductController@reorder_print");
 
     Route::get("/product/delete/{id}", "ProductController@delete");
 });

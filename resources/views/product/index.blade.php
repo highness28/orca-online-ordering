@@ -60,6 +60,9 @@
                 <a href="/product/add" class="btn-sm btn-success" id='add-product'><i class="fa fa-plus"></i>&nbsp; Add New Product</a>
                 <button class="btn-sm btn-info"><i class="fa fa-print"></i>&nbsp; Print</button>
               </form>
+              <form method="GET" action="/product/reorder/print">
+                <button class="btn-sm btn-danger"><i class="fa fa-print"></i>&nbsp; Reorder Print</button>
+              </form>
               <table id="product_table" class="table table-bordered table-striped">
                 <thead>
                   <tr>
