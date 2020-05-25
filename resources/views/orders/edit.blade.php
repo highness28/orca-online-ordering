@@ -18,16 +18,13 @@
 @endsection
 
 @section('content')
-     <div class="content">
+    <div class="content">
         <div class="row">
             <div class="col-xs-12">
                 <div class="box box-primary">
                     <div class="box-header with-border"><h4 class="box-title">Invoice Information</h3></div>
-                    <form method="POST" id="form" enctype="multipart/form-data">
                         {{ csrf_field() }}
-                        <input type="hidden" name="invoice_id" value="{{ $invoice->id }}">
                         <div class="box-body">
-
                             <h3><strong>Customer Name:</strong> {{ $invoice->customer->first_name . ' ' . $invoice->customer->last_name }}</h3>
                             <ul>
                                 <li><strong>Contact #:</strong> {{ $invoice->addressBook->phone_number }}</li>
@@ -101,17 +98,28 @@
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-xs-12">
-                                        @if($invoice->status == 2)
-                                            <a href="{{ url('/orders/deliver/'.$invoice->id) }}" class="btn btn-success"><i class="fa fa-calendar"></i> Set Delivered</a>
-                                        @elseif($invoice->status != 3)
-                                            <button type="submit" class="btn btn-primary"><i class="fa fa-check-square-o"></i> Submit</button>
-                                        @endif
+                                        <div class='col-xs-12 col-sm-2' style='width: 90px;'>
+                                            <form method="POST" id="form" enctype="multipart/form-data">
+                                                <input type="hidden" name="invoice_id" value="{{ $invoice->id }}">
+                                                @if($invoice->status == 2)
+                                                    <a href="{{ url('/orders/deliver/'.$invoice->id) }}" class="btn btn-success"><i class="fa fa-calendar"></i> Set Delivered</a>
+                                                @elseif($invoice->status != 3)
+                                                    <button type="submit" class="btn btn-primary"><i class="fa fa-check-square-o"></i> Submit</button>
+                                                @endif
+                                            </form>
+                                        </div>
+
+                                        <div class='col-xs-12 col-sm-2' style='width: 50px;'>
+                                            <form method='GET' action='/orders/print'>
+                                                <input type='hidden' name='invoice_id' value='{{ $invoice->id }}'/>
+                                                <button type='submit' id='print' class='btn btn-info'><i class="fa fa-print"></i> Print</button>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>

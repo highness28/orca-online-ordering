@@ -2,6 +2,13 @@
 
 @section("css")
   <link rel="stylesheet" href="{{ asset('bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
+  <style>
+    #add-product {
+      color: white;
+      text-decoration: none;
+      padding: 7px;
+    }
+  </style>
 @endsection
 
 @section("breadCrumbTitle")
@@ -35,7 +42,24 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-              <a href="/product/add" class="btn-sm btn-success"><i class="fa fa-plus"></i>&nbsp; Add New Product</a>
+              <form method="GET" action="/product/print">
+                @foreach($products as $product)
+                  <?php
+                    $productObject = (object) [
+                      'product_name'      => $product->product_name,
+                      'item_code'         => $product->item_code,
+                      'category'          => $product->category->category_name,
+                      'brand'             => $product->brand->brand_name,
+                      'price'             => $product->product_price,
+                      'critical_value'    => $product->critical_value,
+                      'quantity_left'     => getStock($product->id)
+                    ];
+                  ?>
+                  <input type="hidden" name='products[]' value='{{ json_encode($productObject) }}'>
+                @endforeach
+                <a href="/product/add" class="btn-sm btn-success" id='add-product'><i class="fa fa-plus"></i>&nbsp; Add New Product</a>
+                <button class="btn-sm btn-info"><i class="fa fa-print"></i>&nbsp; Print</button>
+              </form>
               <table id="product_table" class="table table-bordered table-striped">
                 <thead>
                   <tr>
@@ -62,13 +86,13 @@
                             @endif
                           </a>
                         </td>
-                        <td style="font-size: 18px;">{{ $product->product_name }}</td>
-                        <td style="font-size: 18px;">{{ $product->item_code }}</td>
-                        <td style="font-size: 18px;">{{ $product->category->category_name }}</td>
-                        <td style="font-size: 18px;">{{ $product->brand->brand_name }}</td>
-                        <td style="font-size: 18px;">{{ 'Php ' . number_format($product->product_price, 2) }}</td>
-                        <td style="font-size: 18px;">{{ $product->critical_value }}</td>
-                        <td style="font-size: 18px;">{{ getStock($product->id) }}</td>
+                        <td>{{ $product->product_name }}</td>
+                        <td>{{ $product->item_code }}</td>
+                        <td>{{ $product->category->category_name }}</td>
+                        <td>{{ $product->brand->brand_name }}</td>
+                        <td>{{ 'Php ' . number_format($product->product_price, 2) }}</td>
+                        <td>{{ $product->critical_value }}</td>
+                        <td>{{ getStock($product->id) }}</td>
                         <td>
                             <a href="/product/edit?id={{ $product->id }}"><i class="ion ion-compose"></i> Edit</a>
                         </td>
@@ -94,8 +118,7 @@
         'searching'   : true,
         'ordering'    : true,
         'info'        : true,
-        'autoWidth'   : true,
-        'scrollX'      : true
+        'autoWidth'   : true
       });
     });
   </script>

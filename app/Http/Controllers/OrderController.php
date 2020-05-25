@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use App\Invoice;
 use App\OrderList;
 use App\Customer;
@@ -89,5 +90,67 @@ class OrderController extends Controller
                                 <h4><i class="icon fa fa-check"></i> Success</h4>
                                 Congratulations the transaction has been completed!
                                 </div>');
+    }
+
+    public function print(Request $request) {
+        $invoice_id = $request->invoice_id;
+        $invoice = Invoice::find($invoice_id);
+        $ordersList = OrderList::where('invoice_id', $invoice_id)->get();
+        
+        $pdf = app('Fpdf');
+        $pdf->AddPage('L');
+
+        // Column width, header, data
+        $w = array(100, 70, 35, 70);
+        $header = ['Product', 'Price', 'Quantity', 'Subtotal'];
+
+        // Report Header
+        $pdf->SetFont('Arial', '', 16);
+        $pdf->Cell(array_sum($w)-50, 15, "Order Report");
+        $pdf->Ln();
+
+        $pdf->SetFont('Arial', '', 12);
+        $pdf->Cell(array_sum($w)-100, 6, 'Customer Name: ' . $invoice->customer->first_name . ' ' . $invoice->customer->last_name, '', 'L');
+        $pdf->Cell(100, 6, "Date Ordered: " . date('F d, Y', strtotime($invoice->created_at)), '', '', 'R');
+        $pdf->Ln();
+        $pdf->Cell(array_sum($w)-100, 6, "Delivery Address: " . $invoice->addressBook->delivery_address);
+        $pdf->Cell(100, 6, $invoice->payment_type == 0 ? "Payment Mode: Cash on Delivery" : "Payment Mode: Card", '', '', 'R');
+        $pdf->Ln();
+        $pdf->Cell(array_sum($w)-100, 6, "Province: " . $invoice->addressBook->province);
+        $pdf->Cell(100, 6, "Tracking Number: " . $invoice->tracking_number, '', '', 'R');
+        $pdf->Ln();
+        $pdf->Cell(array_sum($w), 6, "City: " . $invoice->addressBook->city);
+        $pdf->Ln();
+        $pdf->Cell(array_sum($w), 6, "Barangay: " . $invoice->addressBook->barangay);
+        $pdf->Ln();
+        $pdf->Ln();
+
+        // Table Header
+        $pdf->SetFont('Arial','',12);
+        for($i=0;$i<count($header);$i++) {
+            $pdf->Cell($w[$i], 7, $header[$i], 1, 0, 'C');
+        }
+
+        // Data
+        $pdf->Ln();
+        $pdf->SetFont('Arial','',10);
+        $grandTotal = 0;
+        $totalQuantity = 0;
+        foreach($ordersList as $order) {
+            $pdf->Cell($w[0], 6, $order->product->product_name, 'LRB', '', 'L');
+            $pdf->Cell($w[1], 6, 'Php ' . number_format($order->product->product_price, 2), 'LRB', '', 'R');
+            $pdf->Cell($w[2], 6, $order->quantity, 'LRB', '', 'R');
+            $pdf->Cell($w[3], 6, 'Php ' . number_format($order->product->product_price * $order->quantity, 2), 'LRB', '', 'R');
+            $pdf->Ln();
+
+            $grandTotal += $order->product->product_price * $order->quantity;
+            $totalQuantity += $order->quantity;
+        }
+
+        $pdf->Cell(array_sum($w) - ($w[3] + $w[2]), 6, 'Total', 'LRB', '', 'L');
+        $pdf->Cell($w[2], 6, $totalQuantity, 'LRB', '', 'R');
+        $pdf->Cell($w[3], 6, 'Php ' . number_format($grandTotal, 2), 'LRB', '', 'R');
+
+        $pdf->output();
     }
 }

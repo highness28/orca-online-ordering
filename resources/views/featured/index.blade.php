@@ -49,7 +49,7 @@
                 <tbody>
                   @foreach($featuredCategory as $category)
                     <tr>
-                        <td style="font-size: 18px;">
+                        <td>
                             <a href="/featured-category/edit?id={{ $category->id }}">
                                 @if($category->image)
                                     <img src="data:image/png;base64,{{ base64_encode($category->image) }}" alt="category" style="width: 100%">
@@ -58,10 +58,10 @@
                                 @endif
                             </a>
                         </td>
-                        <td style="font-size: 18px;">{{ $category->category->category_name }}</td>
-                        <td style="font-size: 18px;">{{ $category->title }}</td>
-                        <td style="font-size: 18px;">{{ $category->status == 0 ? 'Not Displayed' : 'Displayed' }}</td>
-                        <td style="font-size: 18px;">
+                        <td>{{ $category->category->category_name }}</td>
+                        <td>{{ $category->title }}</td>
+                        <td>{{ $category->status == 0 ? 'Not Displayed' : 'Displayed' }}</td>
+                        <td>
                             <a href="/featured-category/edit?id={{ $category->id }}"><i class="ion ion-compose"></i> Edit</a>
                         </td>
                     </tr>
@@ -85,8 +85,7 @@
         'searching'   : true,
         'ordering'    : false,
         'info'        : true,
-        'autoWidth'   : true,
-        'scrollX'     : true
+        'autoWidth'   : true
       });
     });
   </script>

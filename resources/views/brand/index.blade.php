@@ -48,9 +48,9 @@
                   
                   @foreach($brands as $brand)
                     <tr>
-                        <td style="font-size: 18px;">{{ $brand->id }}</td>
-                        <td style="font-size: 18px;">{{ $brand->brand_name }}</td>
-                        <td style="font-size: 18px;">
+                        <td>{{ $brand->id }}</td>
+                        <td>{{ $brand->brand_name }}</td>
+                        <td>
                             <a href="/brand/edit?id={{ $brand->id }}"><i class="ion ion-compose"></i> Edit</a>
                         </td>
                     </tr>

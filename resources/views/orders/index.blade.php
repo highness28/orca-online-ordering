@@ -1,4 +1,4 @@
- style="font-size: 18px;"@extends("layouts.app")
+@extends("layouts.app")
 
 @section("css")
   <link rel="stylesheet" href="{{ asset('bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
@@ -48,25 +48,29 @@
                     <th>DELIVERY DATE</th>
                     <th>STATUS</th>
                     <th>ACTION</th>
+                    <th>VIEW</th>
                   </tr>
                 </thead>
                 <tbody>
                   @foreach($invoice as $order)
                     <tr>
-                      <td style="font-size: 18px;">{{ $order->id }}</td>
-                      <td style="font-size: 18px;">{{ $order->customer->first_name . ' ' . $order->customer->last_name }}</td>
-                      <td style="font-size: 18px;">{{ $order->customer->account->email }}</td>
-                      <td style="font-size: 18px;">{{ $order->customer->phone_number }}</td>
-                      <td style="font-size: 18px;">{{ 'Php ' . number_format($order->total, 2) }}</td>
-                      <td style="font-size: 18px;">{{ date('F d, Y', strtotime($order->created_at)) }}</td>
-                      <td style="font-size: 18px;">{{ $order->delivery_date ? date('F d, Y', strtotime($order->delivery_date)) : 'Not set' }}</td>
-                      <td style="font-size: 18px;">{{ $order->status == 0 ? 'Inventory Check' : ($order->status == 1 ? 'Sales Check' : ($order->status == 2 ? 'For Delivery' : 'Delivered')) }}</td>
+                      <td>{{ $order->id }}</td>
+                      <td>{{ $order->customer->first_name . ' ' . $order->customer->last_name }}</td>
+                      <td>{{ $order->customer->account->email }}</td>
+                      <td>{{ $order->customer->phone_number }}</td>
+                      <td>{{ 'Php ' . number_format($order->total, 2) }}</td>
+                      <td>{{ date('F d, Y', strtotime($order->created_at)) }}</td>
+                      <td>{{ $order->delivery_date ? date('F d, Y', strtotime($order->delivery_date)) : 'Not set' }}</td>
+                      <td>{{ $order->status == 0 ? 'Inventory Check' : ($order->status == 1 ? 'Sales Check' : ($order->status == 2 ? 'For Delivery' : 'Delivered')) }}</td>
                       <td>
                         @if($order->status != 3)
                           <a href="/orders/edit?id={{ $order->id }}"><i class="ion ion-compose"></i>
                             {{ $order->status == 0 ? 'Pass to sales' : ($order->status == 1 ? 'Set for delivery' : ($order->status == 2 ? 'Set as delivered' : '')) }}
                           </a>
                         @endif
+                      </td>
+                      <td>
+                        <a href="/orders/edit?id={{ $order->id }}"><i class="ion ion-compose"></i>&nbsp; View</a>
                       </td>
                     </tr>
                   @endforeach
@@ -89,8 +93,7 @@
         'searching'   : true,
         'ordering'    : true,
         'info'        : true,
-        'autoWidth'   : true,
-        'scrollX'     : true
+        'autoWidth'   : true
       });
     });
   </script>

@@ -22,6 +22,7 @@ Route::get('/orders', 'OrderController@index');
 Route::get('/orders/edit', 'OrderController@edit');
 Route::post('/orders/edit', 'OrderController@update');
 Route::get('/orders/deliver/{id}', 'OrderController@deliver');
+Route::get('/orders/print', 'OrderController@print');
 
 Route::group(["middleware" => ["auth", "verified"]], function() {
     Route::get('/', 'HomeController@index');
@@ -54,6 +55,7 @@ Route::group(["middleware" => ["auth", "Admin", "verified"]], function() {
     Route::post("/product/edit", "ProductController@update");
     Route::get("/product/add", "ProductController@add");
     Route::post("/product/add", "ProductController@create");
+    Route::get("/product/print", "ProductController@print");
 
     Route::get("/product/delete/{id}", "ProductController@delete");
 });

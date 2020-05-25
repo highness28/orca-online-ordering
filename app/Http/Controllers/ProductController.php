@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use App\Product;
 use App\Brand;
 use App\Category;
@@ -33,6 +34,69 @@ class ProductController extends Controller
                             <h4><i class="icon fa fa-check"></i> Success</h4>
                             You have successfully deleted a product.
                             </div>');
+    }
+
+    public function print(Request $request) {
+        $pdf = app('Fpdf');
+        $pdf->AddPage('P');
+
+        $w = array(48, 33, 28, 20, 17, 17, 31);
+        $header = [
+            "Product Name",
+            "Item Code",
+            "Category",
+            "Brand",
+            "Critical",
+            "Quantity",
+            "Price"
+        ];
+
+        // Report Header
+        $pdf->SetFont('Arial', '', 16);
+        $pdf->Cell(array_sum($w)-50, 15, "Product Report");
+        $pdf->SetFont('Arial', '', 12);
+        $pdf->Cell(50, 15, date('F d, Y'), '', 'B', 'R');
+        $pdf->Ln();
+
+        // Table Header
+        $pdf->SetFont('Arial','',12);
+        for($i=0;$i<count($header);$i++) {
+            $pdf->Cell($w[$i], 7, $header[$i], 1, 0, 'C');
+        }
+
+        // Data
+        $pdf->Ln();
+        $pdf->SetFont('Arial','',10);
+        $grandTotal = 0;
+        $quantityTotal = 0;
+        $criticalTotal = 0;
+        foreach($request->products as $product) {
+            $decodedProduct = json_decode($product);
+            
+            $pdf->Cell($w[0], 6, $decodedProduct->product_name, 'LRB', 0, 'L');
+            $pdf->Cell($w[1], 6, $decodedProduct->item_code, 'LRB', 0, 'L');
+            $pdf->Cell($w[2], 6, $decodedProduct->category, 'LRB', 0, 'L');
+            $pdf->Cell($w[3], 6, $decodedProduct->brand, 'LRB', 0, 'L');
+            $pdf->Cell($w[4], 6, $decodedProduct->critical_value, 'LRB', 0, 'R');
+            $pdf->Cell($w[5], 6, $decodedProduct->quantity_left, 'LRB', 0, 'R');
+            $pdf->Cell($w[6], 6, 'Php ' . number_format($decodedProduct->price, 2), 'LRB', 0, 'R');
+            $pdf->Ln();
+
+            $grandTotal += floatval($decodedProduct->price);
+            $quantityTotal += $decodedProduct->quantity_left;
+            $criticalTotal += $decodedProduct->critical_value;
+        }
+
+        // Closing line
+        $pdf->Cell($w[0], 6, 'Total', 'LB', 0, 'L');
+        $pdf->Cell($w[1], 6, '', 'B');
+        $pdf->Cell($w[2], 6, '', 'B');
+        $pdf->Cell($w[3], 6, '', 'B');
+        $pdf->Cell($w[4], 6, $criticalTotal, 'LB', 0, 'R');
+        $pdf->Cell($w[5], 6, $quantityTotal, 'LB', 0, 'R');
+        $pdf->Cell($w[6], 6, 'Php ' . number_format($grandTotal, 2), 'LRB', 0, 'R');
+        $pdf->Ln();
+        $pdf->output();
     }
 
     public function edit(Request $request) {

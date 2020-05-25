@@ -58,7 +58,6 @@ class SalesController extends Controller
         }
 
         // Closing line
-        // $pdf->Cell(array_sum($w),0,'','T');
         $pdf->Cell($w[0], 6, 'Total', 'LB', 0, 'L');
         $pdf->Cell($w[1], 6, '', 'B');
         $pdf->Cell($w[2], 6, '', 'B');
